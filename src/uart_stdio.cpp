@@ -11,8 +11,16 @@ static int uart_getchar(FILE *stream) {
     while (!Serial.available()) {
         // Wait for character to be available
     }
-    return Serial.read();
+    char c = Serial.read();
+    
+    // Echo the character back so user can see what they type
+    if (c != '\r' && c != '\n') {  // Don't echo newlines
+        Serial.write(c);
+    }
+    
+    return c;
 }
+
 
 // Initialize STDIO streams to work with UART
 void initStdio() {

@@ -12,5 +12,6 @@ void ledOn();
 void ledOff();
 void ledToggle();
 bool ledGetState();
+void ledBlink(int times, int delayMs);
 
 #endif

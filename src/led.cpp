@@ -29,3 +29,12 @@ void ledToggle() {
 bool ledGetState() {
     return ledState;
 }
+
+void ledBlink(int times, int delayMs) {
+    for (int i = 0; i < times; i++) {
+        ledOn();
+        delay(delayMs);
+        ledOff();
+        delay(delayMs);
+    }
+}
