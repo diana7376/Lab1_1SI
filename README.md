@@ -1,7 +1,6 @@
 # Lab 1.1 - User Interaction: STDIO - Serial Interface
 
-## Author
-**Student Name**: Iachim Diana
+**Author**: Iachim Diana
 **Group**: FAF-233 
 **Course**: Embedded Systems  
 **Lab**: 1.1 - STDIO Serial Interface 
