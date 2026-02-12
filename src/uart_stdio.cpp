@@ -1,38 +1,43 @@
 #include "uart_stdio.h"
+#include <stdio.h>
+#include <Arduino.h>
 
-// Function to write a character to UART (used by printf)
+// Output function used by printf
 static int uart_putchar(char c, FILE *stream) {
+    (void)stream;
     Serial.write(c);
     return 0;
 }
 
-// Function to read a character from UART (used by scanf/fgets)
+// Input function used by fgets/scanf
 static int uart_getchar(FILE *stream) {
+    (void)stream;
+
+    // busy-wait until a character arrives
     while (!Serial.available()) {
-        // Wait for character to be available
+        // spin
     }
-    char c = Serial.read();
-    
-    // Echo the character back so user can see what they type
-    if (c != '\r' && c != '\n') {  // Don't echo newlines
-        Serial.write(c);
+
+    int c = Serial.read();        // use int (required by libc prototypes)
+
+    // echo everything except CR/LF
+    if (c != '\r' && c != '\n') {
+        Serial.write((char)c);
     }
-    
+
+    // return the character to scanf/fgets
     return c;
 }
 
-
-// Initialize STDIO streams to work with UART
 void initStdio() {
-    // Create file streams for stdout and stdin
     static FILE uartout;
     static FILE uartin;
-    
-    // Setup stdout for printf
+
+    // stdout → uart_putchar (printf)
     fdev_setup_stream(&uartout, uart_putchar, NULL, _FDEV_SETUP_WRITE);
     stdout = &uartout;
-    
-    // Setup stdin for scanf/fgets
+
+    // stdin → uart_getchar (fgets/scanf)
     fdev_setup_stream(&uartin, NULL, uart_getchar, _FDEV_SETUP_READ);
     stdin = &uartin;
 }

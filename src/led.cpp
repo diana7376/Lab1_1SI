@@ -1,9 +1,10 @@
 #include "led.h"
 
+// Logical state of the LED, used by toggle/status
 static bool ledState = false;
 
 void ledInit() {
-    pinMode(LED_PIN, OUTPUT);
+    pinMode(LED_PIN, OUTPUT);   // configure LED pin as output
     digitalWrite(LED_PIN, LOW);
     ledState = false;
 }
@@ -19,6 +20,7 @@ void ledOff() {
 }
 
 void ledToggle() {
+    // Toggle based on internal state
     if (ledState) {
         ledOff();
     } else {
@@ -27,13 +29,13 @@ void ledToggle() {
 }
 
 bool ledGetState() {
-    return ledState;
+    return ledState;            // expose state to serial interface
 }
 
 void ledBlink(int times, int delayMs) {
     for (int i = 0; i < times; i++) {
         ledOn();
-        delay(delayMs);
+        delay(delayMs);         // simple blocking delay for demo
         ledOff();
         delay(delayMs);
     }

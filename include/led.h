@@ -3,10 +3,9 @@
 
 #include <Arduino.h>
 
-// LED pin definition
+// Must match the pin used in the electric schematic
 #define LED_PIN 13
 
-// Function declarations
 void ledInit();
 void ledOn();
 void ledOff();

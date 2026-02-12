@@ -1,10 +1,10 @@
 #ifndef UART_STDIO_H
 #define UART_STDIO_H
 
-#include <Arduino.h>
 #include <stdio.h>
+#include <Arduino.h>
 
-// Initialize STDIO streams for UART communication
+// Binds stdin/stdout to UART so printf/fgets/scanf use Serial
 void initStdio();
 
 #endif
